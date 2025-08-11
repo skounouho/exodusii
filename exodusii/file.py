@@ -635,6 +635,8 @@ class exodusii_file:
         coor_names = self.get_coord_names()
         if "coor" in coor_names[0]:
             candidates = coor_names
+        elif len(coor_names[0]) == 0:
+            candidates = [f"{ex.VAR_COORD}{_.lower()}" for _ in list("xyz")]
         else:
             candidates = [f"{ex.VAR_COORD}{_.lower()}" for _ in coor_names]
         variables = self.variables()
@@ -2603,7 +2605,7 @@ class exodusii_file:
         version = 5.0300002
         self.setattr(ex.ATT_API_VERSION, version)
         self.setattr(ex.ATT_VERSION, version)
-        self.setattr(ex.ATT_FLT_WORDSIZE, 4)
+        self.setattr(ex.ATT_FLT_WORDSIZE, 8) # default to double precision
         self.setattr(ex.ATT_FILESIZE, 1)
 
         self.create_dimension(ex.DIM_TIME, None)
@@ -2613,7 +2615,7 @@ class exodusii_file:
         self.create_dimension(ex.DIM_NAME, 32)
         self.create_dimension(ex.DIM_STR, 32)
         self.create_dimension(ex.DIM_LIN, 80)
-        self.create_dimension(ex.DIM_N4, 4)
+        self.create_dimension(ex.DIM_N4, 8) # default to double precision
 
         self._counter = {}
 

@@ -110,7 +110,7 @@ def create_dimension(fh, name, value):
 
 
 def create_variable(fh, id, type, shape):
-    kind = {str: "c", int: "i", float: "f"}[type]
+    kind = {str: "c", int: "i", float: "d"}[type]
     fh.createVariable(id, kind, shape)
 
 
